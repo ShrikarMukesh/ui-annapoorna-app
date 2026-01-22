@@ -12,10 +12,19 @@ const HomePage = () => {
         // Fetch from API
         const fetchRestaurants = async () => {
             try {
-                // Assuming API Gateway is running on 9190
                 const response = await axios.get('http://localhost:9190/api/v1/restaurants');
                 if (response.data && response.data.length > 0) {
-                    setRestaurants(response.data);
+                    const mappedRestaurants = response.data.map(rest => ({
+                        id: rest.restaurantId,
+                        name: rest.name,
+                        cuisine: rest.cuisines,
+                        rating: rest.averageRating,
+                        deliveryTime: 30 + Math.floor(Math.random() * 20), // Placeholder as API doesn't have this
+                        priceForTwo: "₹400 for two", // Placeholder
+                        imageUrl: rest.cloudinaryImageId,
+                        discount: ""
+                    }));
+                    setRestaurants(mappedRestaurants);
                 } else {
                     useDummyData();
                 }

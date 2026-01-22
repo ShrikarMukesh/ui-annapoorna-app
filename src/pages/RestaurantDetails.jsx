@@ -2,38 +2,61 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaStar, FaClock, FaRupeeSign } from 'react-icons/fa';
 
+import axios from 'axios';
+
 const RestaurantDetails = () => {
     const { id } = useParams();
     const [restaurant, setRestaurant] = useState(null);
 
     useEffect(() => {
-        // Fetch restaurant details + menu
-        // Dummy data
-        setRestaurant({
-            id: id,
-            name: "Meghana Foods",
-            cuisine: ["Biryani", "Andhra", "North Indian"],
-            rating: 4.4,
-            deliveryTime: 35,
-            priceForTwo: "₹500 for two",
-            address: "Koramangala, Bangalore",
-            menu: [
-                {
-                    category: "Recommended",
-                    items: [
-                        { id: 101, name: "Chicken Boneless Biryani", price: 330, description: "Signature dish with boneless chicken pieces.", isVeg: false, image: "https://b.zmtcdn.com/data/dish_images/d19ec315294693b9961a80fa9012a4a31617266252.png" },
-                        { id: 102, name: "Paneer Biryani", price: 290, description: "Delicious biryani with marinated paneer cubes.", isVeg: true, image: "" }
-                    ]
-                },
-                {
-                    category: "Starters",
-                    items: [
-                        { id: 201, name: "Chilli Chicken", price: 280, description: "Spicy chicken starter.", isVeg: false, image: "" },
-                        { id: 202, name: "Gobi Manchurian", price: 210, description: "Crispy cauliflower tossed in sauces.", isVeg: true, image: "" }
-                    ]
+        const fetchRestaurantDetails = async () => {
+            try {
+                // Fetching all restaurants and finding the one matches ID, as we have the list available
+                // Ideally this should be a specific endpoint like /api/v1/restaurants/{id}
+                const response = await axios.get('http://localhost:9190/api/v1/restaurants');
+                if (response.data) {
+                    const foundRestaurant = response.data.find(r => r.restaurantId === id);
+
+                    if (foundRestaurant) {
+                        // Group menu items by category
+                        const menuByCategory = foundRestaurant.menu.reduce((acc, item, index) => {
+                            if (!acc[item.category]) {
+                                acc[item.category] = [];
+                            }
+                            acc[item.category].push({
+                                id: item.id || `menu-item-${index}`,
+                                name: item.name,
+                                price: item.price,
+                                description: item.description,
+                                isVeg: item.veg !== undefined ? item.veg : true, // Default to true if missing, or map from 'veg'
+                                image: item.imageId || ""
+                            });
+                            return acc;
+                        }, {});
+
+                        const menu = Object.keys(menuByCategory).map(category => ({
+                            category,
+                            items: menuByCategory[category]
+                        }));
+
+                        setRestaurant({
+                            id: foundRestaurant.restaurantId,
+                            name: foundRestaurant.name,
+                            cuisine: foundRestaurant.cuisines,
+                            rating: foundRestaurant.averageRating,
+                            deliveryTime: "30-40", // Placeholder
+                            priceForTwo: "₹400 for two", // Placeholder
+                            address: foundRestaurant.address ? `${foundRestaurant.address.street || ''}, ${foundRestaurant.address.city || ''}` : "Bangalore",
+                            menu: menu
+                        });
+                    }
                 }
-            ]
-        });
+            } catch (error) {
+                console.error("Error fetching restaurant details:", error);
+            }
+        };
+
+        fetchRestaurantDetails();
     }, [id]);
 
     if (!restaurant) return <div className="p-10 text-center">Loading...</div>;
