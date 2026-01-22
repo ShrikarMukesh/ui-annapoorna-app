@@ -1,0 +1,467 @@
+[
+  {
+    "restaurantId": "66e9b7ce58bc86690dd575ab",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/mocil3npmwpcdcfaxql1",
+    "name": "Leon's - Burgers & Wings",
+    "description": "A famous burger joint",
+    "cuisines": [
+      "American",
+      "Snacks",
+      "Turkish"
+    ],
+    "address": {
+      "street": "123 Main St",
+      "city": "Jeevanbhimanagar",
+      "state": "Karnataka",
+      "zipCode": "560075",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+919876543210",
+      "email": "contact@leons.com",
+      "website": "http://leons.com"
+    },
+    "menu": [
+      {
+        "name": "Chicken Burger",
+        "description": "Grilled chicken burger with cheese",
+        "price": 200.0
+      },
+      {
+        "name": "Fries",
+        "description": "Crispy golden fries",
+        "price": 100.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "John Doe",
+        "rating": 5,
+        "review": "Amazing food!",
+        "createdAt": "2024-09-17T22:39:34.252"
+      },
+      {
+        "customerName": "Jane Smith",
+        "rating": 4,
+        "review": "Great taste, but service was a bit slow.",
+        "createdAt": "2024-09-17T22:39:34.252"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-17T22:39:34.251",
+    "updatedAt": "2024-09-17T22:39:34.374"
+  },
+  {
+    "restaurantId": "66e9b88f58bc86690dd575ac",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/2b4f62d606d1b2bfba9ba9e5386fabb7",
+    "name": "Spice Garden",
+    "description": "An authentic Indian restaurant serving a wide variety of spicy dishes.",
+    "cuisines": [
+      "Indian",
+      "South Indian",
+      "North Indian"
+    ],
+    "address": {
+      "street": "45 Residency Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+919812345678",
+      "email": "info@spicegarden.com",
+      "website": "http://spicegarden.com"
+    },
+    "menu": [
+      {
+        "name": "Masala Dosa",
+        "description": "Crispy dosa stuffed with spicy potato filling",
+        "price": 120.0
+      },
+      {
+        "name": "Paneer Butter Masala",
+        "description": "Soft paneer cubes cooked in a rich, creamy tomato gravy",
+        "price": 220.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "Raj Kumar",
+        "rating": 5,
+        "review": "Authentic flavors and great ambiance.",
+        "createdAt": "2024-09-17T22:42:47.721"
+      },
+      {
+        "customerName": "Priya Mehra",
+        "rating": 4,
+        "review": "Loved the food but the service could be faster.",
+        "createdAt": "2024-09-17T22:42:47.721"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-17T22:42:47.721",
+    "updatedAt": "2024-09-17T22:42:47.722"
+  },
+  {
+    "restaurantId": "66e9b89258bc86690dd575ad",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/mocil3npmwpcdcfaxql1",
+    "name": "La Pino'z Pizza",
+    "description": "Famous for its giant slices and unique pizza toppings.",
+    "cuisines": [
+      "Italian",
+      "Pizza"
+    ],
+    "address": {
+      "street": "22 Commercial Street",
+      "city": "Indiranagar",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+918888888888",
+      "email": "support@lapinozpizza.com",
+      "website": "http://lapinozpizza.com"
+    },
+    "menu": [
+      {
+        "name": "Pepperoni Pizza",
+        "description": "Classic pizza topped with spicy pepperoni slices",
+        "price": 350.0
+      },
+      {
+        "name": "Veggie Overload",
+        "description": "Loaded with fresh vegetables and mozzarella cheese",
+        "price": 300.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "Amit Shah",
+        "rating": 4,
+        "review": "Great pizza, though a bit on the expensive side.",
+        "createdAt": "2024-09-17T22:42:50.354"
+      },
+      {
+        "customerName": "Sneha Kapoor",
+        "rating": 5,
+        "review": "Best pizza in the city! Highly recommend.",
+        "createdAt": "2024-09-17T22:42:50.354"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-17T22:42:50.354",
+    "updatedAt": "2024-09-17T22:42:50.355"
+  },
+  {
+    "restaurantId": "66ec673b4696e67b3a5beb2f",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/d3najev2rpzakxfvp318",
+    "name": "La Pino'z Pizza",
+    "description": "Famous for its giant slices and unique pizza toppings.",
+    "cuisines": [
+      "Italian",
+      "Pizza"
+    ],
+    "address": {
+      "street": "22 Commercial Street",
+      "city": "Indiranagar",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+918888888888",
+      "email": "support@lapinozpizza.com",
+      "website": "http://lapinozpizza.com"
+    },
+    "menu": [
+      {
+        "name": "Pepperoni Pizza",
+        "description": "Classic pizza topped with spicy pepperoni slices",
+        "price": 350.0
+      },
+      {
+        "name": "Veggie Overload",
+        "description": "Loaded with fresh vegetables and mozzarella cheese",
+        "price": 300.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "Amit Shah",
+        "rating": 4,
+        "review": "Great pizza, though a bit on the expensive side.",
+        "createdAt": "2024-09-19T23:32:34.799"
+      },
+      {
+        "customerName": "Sneha Kapoor",
+        "rating": 5,
+        "review": "Best pizza in the city! Highly recommend.",
+        "createdAt": "2024-09-19T23:32:34.8"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-19T23:32:34.799",
+    "updatedAt": "2024-09-19T23:32:35.018"
+  },
+  {
+    "restaurantId": "66ec675ef4553e59c4a0123d",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/d0450ce1a6ba19ea60cd724471ed54a8",
+    "name": "La Pino'z Pizza",
+    "description": "Famous for its giant slices and unique pizza toppings.",
+    "cuisines": [
+      "Italian",
+      "Pizza"
+    ],
+    "address": {
+      "street": "22 Commercial Street",
+      "city": "Indiranagar",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+918888888888",
+      "email": "support@lapinozpizza.com",
+      "website": "http://lapinozpizza.com"
+    },
+    "menu": [
+      {
+        "name": "Pepperoni Pizza",
+        "description": "Classic pizza topped with spicy pepperoni slices",
+        "price": 350.0
+      },
+      {
+        "name": "Veggie Overload",
+        "description": "Loaded with fresh vegetables and mozzarella cheese",
+        "price": 300.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "Amit Shah",
+        "rating": 4,
+        "review": "Great pizza, though a bit on the expensive side.",
+        "createdAt": "2024-09-19T23:33:10.379"
+      },
+      {
+        "customerName": "Sneha Kapoor",
+        "rating": 5,
+        "review": "Best pizza in the city! Highly recommend.",
+        "createdAt": "2024-09-19T23:33:10.379"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-19T23:33:10.378",
+    "updatedAt": "2024-09-19T23:33:10.666"
+  },{
+  "restaurantId": "66ec6d9ff4553e59c4a0123e",
+  "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/2b4f62d606d1b2bfba9ba9e5386fabb7",
+  "name": "Cafe Delight",
+  "description": "A cozy cafe offering a wide range of coffees, pastries, and quick bites.",
+  "cuisines": [
+    "Cafe",
+    "Continental",
+    "Desserts"
+  ],
+  "address": {
+    "street": "88 MG Road",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "zipCode": "560001",
+    "country": "India"
+  },
+  "contact": {
+    "phone": "+919999876543",
+    "email": "info@cafedelight.com",
+    "website": "http://cafedelight.com"
+  },
+  "menu": [
+    {
+      "name": "Espresso",
+      "description": "Strong and rich espresso shot",
+      "price": 150.0
+    },
+    {
+      "name": "Chocolate Muffin",
+      "description": "Moist and rich chocolate muffin",
+      "price": 80.0
+    }
+  ],
+  "ratings": [
+    {
+      "customerName": "Rohit Verma",
+      "rating": 4,
+      "review": "Great coffee but seating is limited.",
+      "createdAt": "2024-09-19T23:59:51.128"
+    },
+    {
+      "customerName": "Nisha Gupta",
+      "rating": 5,
+      "review": "Best muffins in town!",
+      "createdAt": "2024-09-19T23:59:51.128"
+    }
+  ],
+  "averageRating": 4.5,
+  "createdAt": "2024-09-19T23:59:51.128",
+  "updatedAt": "2024-09-19T23:59:51.13"
+},
+  {
+    "restaurantId": "66ec6da8f4553e59c4a0123f",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/2b4f62d606d1b2bfba9ba9e5386fabb7",
+    "name": "The Curry House",
+    "description": "Authentic Indian and Mughlai cuisine with bold flavors and rich spices.",
+    "cuisines": [
+      "Indian",
+      "Mughlai",
+      "Biryani"
+    ],
+    "address": {
+      "street": "14 Brigade Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipCode": "560025",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+918123456789",
+      "email": "support@thecurryhouse.com",
+      "website": "http://thecurryhouse.com"
+    },
+    "menu": [
+      {
+        "name": "Chicken Biryani",
+        "description": "Fragrant basmati rice cooked with tender chicken and Indian spices",
+        "price": 280.0
+      },
+      {
+        "name": "Butter Chicken",
+        "description": "Creamy tomato-based gravy with succulent chicken pieces",
+        "price": 350.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "Anjali Mehra",
+        "rating": 5,
+        "review": "Best biryani I've ever had!",
+        "createdAt": "2024-09-20T00:00:00.506"
+      },
+      {
+        "customerName": "Vikram Patel",
+        "rating": 4,
+        "review": "Loved the food but the portion size was small.",
+        "createdAt": "2024-09-20T00:00:00.506"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-20T00:00:00.506",
+    "updatedAt": "2024-09-20T00:00:00.508"
+  },
+  {
+    "restaurantId": "66ec6daef4553e59c4a01240",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/2b4f62d606d1b2bfba9ba9e5386fabb7",
+    "name": "Sushi World",
+    "description": "A premium sushi restaurant offering the freshest seafood and authentic Japanese dishes.",
+    "cuisines": [
+      "Japanese",
+      "Sushi",
+      "Asian"
+    ],
+    "address": {
+      "street": "56 Koramangala 5th Block",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipCode": "560034",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+919876543210",
+      "email": "info@sushiworld.com",
+      "website": "http://sushiworld.com"
+    },
+    "menu": [
+      {
+        "name": "Spicy Tuna Roll",
+        "description": "Tuna roll with spicy mayo and fresh vegetables",
+        "price": 450.0
+      },
+      {
+        "name": "Salmon Nigiri",
+        "description": "Fresh salmon atop seasoned sushi rice",
+        "price": 350.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "Rhea Kapoor",
+        "rating": 5,
+        "review": "The sushi is fresh and delicious!",
+        "createdAt": "2024-09-20T00:00:06.028"
+      },
+      {
+        "customerName": "Kunal Roy",
+        "rating": 4,
+        "review": "Great sushi but a bit pricey.",
+        "createdAt": "2024-09-20T00:00:06.028"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-20T00:00:06.027",
+    "updatedAt": "2024-09-20T00:00:06.03"
+  },
+  {
+    "restaurantId": "66ec6dfff4553e59c4a01241",
+    "cloudinaryImageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/2b4f62d606d1b2bfba9ba9e5386fabb7",
+    "name": "Sushi World",
+    "description": "A premium sushi restaurant offering the freshest seafood and authentic Japanese dishes.",
+    "cuisines": [
+      "Japanese",
+      "Sushi",
+      "Asian"
+    ],
+    "address": {
+      "street": "56 Koramangala 5th Block",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipCode": "560034",
+      "country": "India"
+    },
+    "contact": {
+      "phone": "+919876543210",
+      "email": "info@sushiworld.com",
+      "website": "http://sushiworld.com"
+    },
+    "menu": [
+      {
+        "name": "Spicy Tuna Roll",
+        "description": "Tuna roll with spicy mayo and fresh vegetables",
+        "price": 450.0
+      },
+      {
+        "name": "Salmon Nigiri",
+        "description": "Fresh salmon atop seasoned sushi rice",
+        "price": 350.0
+      }
+    ],
+    "ratings": [
+      {
+        "customerName": "Rhea Kapoor",
+        "rating": 5,
+        "review": "The sushi is fresh and delicious!",
+        "createdAt": "2024-09-20T00:01:27.811066447"
+      },
+      {
+        "customerName": "Kunal Roy",
+        "rating": 4,
+        "review": "Great sushi but a bit pricey.",
+        "createdAt": "2024-09-20T00:01:27.811094531"
+      }
+    ],
+    "averageRating": 4.5,
+    "createdAt": "2024-09-20T00:01:27.810909781",
+    "updatedAt": "2024-09-20T00:01:27.812229944"
+  }
+
+]
