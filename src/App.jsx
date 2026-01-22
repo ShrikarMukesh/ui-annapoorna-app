@@ -12,7 +12,7 @@ import JobsPage from "./pages/JobsPage.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import LoginForm from "./components/LoginForm.jsx";
-import Dashboard from "./components/profile/Dashboard.jsx";
+
 import Profile from "./components/profile/Profile.jsx";
 import RestaurantDetails from "./pages/RestaurantDetails.jsx";
 
