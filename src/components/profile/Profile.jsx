@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiPackage, FiMapPin, FiCreditCard, FiSettings, FiHeart, FiUser, FiEdit2 } from 'react-icons/fi';
 import { MdVerified } from 'react-icons/md';
+import axios from 'axios';
 
 const Profile = () => {
     const [activeTab, setActiveTab] = useState('profile');
@@ -10,6 +11,23 @@ const Profile = () => {
         phone: '9845484475',
         email: 'mukesh.shrikar11@gmail.com'
     });
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        if (activeTab === 'orders') {
+            const fetchOrders = async () => {
+                try {
+                    const response = await axios.get('http://localhost:9097/api/v1/orders/customer/6970a04649d6db4dd74c3d3a');
+                    if (response.data) {
+                        setOrders(response.data);
+                    }
+                } catch (error) {
+                    console.error("Error fetching orders:", error);
+                }
+            };
+            fetchOrders();
+        }
+    }, [activeTab]);
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
@@ -92,7 +110,7 @@ const Profile = () => {
                             onChange={handleInputChange}
                         />
                     )}
-                    {activeTab === 'orders' && <PastOrders />}
+                    {activeTab === 'orders' && <PastOrders orders={orders} />}
                     {activeTab === 'favourites' && <Placeholder title="Favourites" message="Your favourite restaurants will appear here." />}
                     {activeTab === 'payments' && <Placeholder title="Payments" message="Manage your payment methods." />}
                     {activeTab === 'addresses' && <Placeholder title="Addresses" message="Manage your delivery addresses." />}
@@ -108,8 +126,8 @@ const SidebarItem = ({ icon, label, active, onClick }) => {
         <button
             onClick={onClick}
             className={`w-full flex items-center p-4 rounded-lg transition-all duration-200 ${active
-                    ? 'bg-white text-blue-900 font-semibold shadow-md transform scale-105'
-                    : 'text-blue-100 hover:bg-blue-800 hover:text-white'
+                ? 'bg-white text-blue-900 font-semibold shadow-md transform scale-105'
+                : 'text-blue-100 hover:bg-blue-800 hover:text-white'
                 }`}
         >
             <span className="text-xl mr-4">{icon}</span>
@@ -205,50 +223,46 @@ const InputGroup = ({ label, name, value, isEditing, onChange, type = "text" }) 
     </div>
 );
 
-const PastOrders = () => {
-    const orders = [
-        {
-            id: 1,
-            restaurant: 'Sai Prasadam',
-            location: 'Vijay Nagar',
-            deliveredOn: 'Thu, Dec 21, 2023, 10:14 PM',
-            items: 'North Indian Meal x 1',
-            total: '₹ 190',
-            imageUrl: 'https://via.placeholder.com/100',
-            status: 'Delivered'
-        },
-        {
-            id: 2,
-            restaurant: 'KFC',
-            location: 'Vijayanagar',
-            deliveredOn: 'Wed, Nov 29, 2023, 09:06 PM',
-            items: '2 X Veg Krisper Burgers x 1',
-            total: '₹ 396',
-            imageUrl: 'https://via.placeholder.com/100',
-            status: 'Delivered'
-        },
-    ];
-
+const PastOrders = ({ orders }) => {
     return (
         <div className="animate-fade-in">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Past Orders</h2>
-            <div className="space-y-6">
-                {orders.map((order) => (
-                    <OrderCard key={order.id} order={order} />
-                ))}
-            </div>
+            {orders && orders.length > 0 ? (
+                <div className="space-y-6">
+                    {orders.map((order, index) => (
+                        <OrderCard key={index} order={order} />
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center py-10 text-gray-500">No past orders found.</div>
+            )}
         </div>
     );
 };
 
 const OrderCard = ({ order }) => {
+    // Determine status color
+    const getStatusColor = (status) => {
+        switch (status?.toUpperCase()) {
+            case 'DELIVERED': return 'text-green-600 bg-green-50';
+            case 'CANCELLED': return 'text-red-600 bg-red-50';
+            case 'PENDING': return 'text-orange-600 bg-orange-50';
+            default: return 'text-blue-600 bg-blue-50';
+        }
+    };
+
+    const renderId = (id) => {
+        if (typeof id === 'object' && id !== null) return JSON.stringify(id);
+        return id;
+    };
+
     return (
         <div className="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex flex-col sm:flex-row gap-6">
                 <div className="w-full sm:w-32 h-32 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
                     <img
                         src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
-                        alt={order.restaurant}
+                        alt="Order"
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -256,21 +270,23 @@ const OrderCard = ({ order }) => {
                 <div className="flex-1">
                     <div className="flex justify-between items-start">
                         <div>
-                            <h3 className="text-xl font-bold text-gray-800">{order.restaurant}</h3>
-                            <p className="text-gray-500 text-sm mt-1">{order.location}</p>
+                            {/* Assuming restaurantName is available, otherwise show ID */}
+                            <h3 className="text-xl font-bold text-gray-800">{order.restaurantName || "Restaurant #" + renderId(order.restaurantId || "Unknown")}</h3>
+                            <p className="text-gray-500 text-sm mt-1">{order.deliveryLocation || "Bangalore"}</p>
                         </div>
-                        <div className="flex items-center text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium">
-                            <MdVerified className="mr-1" /> {order.status}
+                        <div className={`flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(order.orderStatus)}`}>
+                            <MdVerified className="mr-1" /> {order.orderStatus || "Processing"}
                         </div>
                     </div>
 
                     <div className="mt-4 text-gray-600 text-sm">
-                        <p>{order.items}</p>
-                        <p className="mt-1 text-gray-400">Ordered on: {order.deliveredOn}</p>
+                        {/* Assuming orderItems is an array, we map it or just show count */}
+                        <p>{Array.isArray(order.orderItems) ? order.orderItems.map(item => `${item.name || 'Item'} x ${item.quantity}`).join(', ') : "Items information unavailable"}</p>
+                        <p className="mt-1 text-gray-400">Ordered on: {new Date(order.orderDate).toLocaleString()}</p>
                     </div>
 
                     <div className="border-t border-gray-100 mt-4 pt-4 flex flex-wrap justify-between items-center gap-4">
-                        <p className="font-bold text-gray-800">Total Paid: {order.total}</p>
+                        <p className="font-bold text-gray-800">Total Paid: ₹{order.totalAmount}</p>
                         <div className="flex gap-3">
                             <button className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
                                 REORDER
