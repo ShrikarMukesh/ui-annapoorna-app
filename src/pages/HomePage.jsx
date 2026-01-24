@@ -22,7 +22,7 @@ const HomePage = () => {
                         rating: rest.averageRating,
                         deliveryTime: 30 + Math.floor(Math.random() * 20), // Placeholder as API doesn't have this
                         priceForTwo: "₹400 for two", // Placeholder
-                        imageUrl: rest.cloudinaryImageId,
+                        imageUrl: rest.cloudinaryImageId ? (rest.cloudinaryImageId.startsWith('http') ? rest.cloudinaryImageId : `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${rest.cloudinaryImageId}`) : "https://via.placeholder.com/300",
                         discount: ""
                     }));
                     setRestaurants(mappedRestaurants);

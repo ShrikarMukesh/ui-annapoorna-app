@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { FiPackage, FiMapPin, FiCreditCard, FiSettings, FiHeart, FiUser, FiEdit2 } from 'react-icons/fi';
-import { MdVerified } from 'react-icons/md';
+import { MdVerified, MdLogout } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import config from '../../config';
 
 const Profile = () => {
     const [activeTab, setActiveTab] = useState('profile');
     const [isEditing, setIsEditing] = useState(false);
+    const navigate = useNavigate();
     const [user, setUser] = useState(() => {
         const savedUser = localStorage.getItem('user');
         return savedUser ? JSON.parse(savedUser) : {
@@ -20,15 +22,20 @@ const Profile = () => {
     // Helper to get token
     const getToken = () => localStorage.getItem('authToken');
 
-    // Fetch user profile on mount if we only have ID or want fresh data
+    // Fetch user profile on mount
     useEffect(() => {
         const fetchUserProfile = async () => {
+            const token = getToken();
             const userId = localStorage.getItem('userId') || (user && user.id);
-            if (!userId) return;
+
+            if (!token || !userId) {
+                // If no token or ID, user is not logged in.
+                navigate('/signin');
+                return;
+            }
 
             try {
-                const token = getToken();
-                const headers = token ? { Authorization: `Bearer ${token}` } : {};
+                const headers = { Authorization: `Bearer ${token}` };
                 const response = await axios.get(`${config.customer.baseUrl}/${userId}`, { headers });
                 if (response.data) {
                     setUser(response.data);
@@ -37,6 +44,12 @@ const Profile = () => {
                 }
             } catch (error) {
                 console.error("Error fetching profile:", error);
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                    // Token likely expired or invalid
+                    alert("Session expired. Please log in again.");
+                    localStorage.clear();
+                    navigate('/signin');
+                }
             }
         };
 
@@ -47,16 +60,22 @@ const Profile = () => {
     useEffect(() => {
         if (activeTab === 'orders') {
             const fetchOrders = async () => {
-                const userId = localStorage.getItem('userId') || (user && user.id) || "6970a04649d6db4dd74c3d3a"; // Fallback for dev
+                const token = getToken();
+                const userId = localStorage.getItem('userId') || (user && user.id);
+
+                if (!token || !userId) return;
+
                 try {
-                    const token = getToken();
-                    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+                    const headers = { Authorization: `Bearer ${token}` };
                     const response = await axios.get(`${config.order.baseUrl}/customer/${userId}`, { headers });
                     if (response.data) {
                         setOrders(response.data);
                     }
                 } catch (error) {
                     console.error("Error fetching orders:", error);
+                    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                        // Optional: Handle order fetch auth error quietly or redirect
+                    }
                 }
             };
             fetchOrders();
@@ -143,11 +162,22 @@ const Profile = () => {
                         onClick={() => setActiveTab('addresses')}
                     />
                     <SidebarItem
-                        icon={<FiSettings />}
-                        label="Settings"
                         active={activeTab === 'settings'}
                         onClick={() => setActiveTab('settings')}
                     />
+
+                    <div className="pt-4 mt-4 border-t border-blue-800">
+                        <button
+                            onClick={() => {
+                                localStorage.clear();
+                                navigate('/signin');
+                            }}
+                            className="w-full flex items-center p-4 rounded-lg text-red-300 hover:bg-red-900/20 hover:text-red-100 transition-all duration-200"
+                        >
+                            <span className="text-xl mr-4"><MdLogout /></span>
+                            <span>Logout</span>
+                        </button>
+                    </div>
                 </nav>
             </div>
 

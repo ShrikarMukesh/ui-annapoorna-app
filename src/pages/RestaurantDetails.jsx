@@ -11,46 +11,50 @@ const RestaurantDetails = () => {
 
     useEffect(() => {
         const fetchRestaurantDetails = async () => {
+            // Basic validation
+            if (!id) return;
+
             try {
-                // Fetching all restaurants and finding the one matches ID, as we have the list available
-                // Ideally this should be a specific endpoint like /api/v1/restaurants/{id}
-                const response = await axios.get(config.restaurant.baseUrl);
-                if (response.data) {
-                    const foundRestaurant = response.data.find(r => r.restaurantId === id);
+                // Fetch specific restaurant details
+                const response = await axios.get(`${config.restaurant.baseUrl}/${id}`);
+                const foundRestaurant = response.data;
 
-                    if (foundRestaurant) {
-                        // Group menu items by category
-                        const menuByCategory = foundRestaurant.menu.reduce((acc, item, index) => {
-                            if (!acc[item.category]) {
-                                acc[item.category] = [];
-                            }
-                            acc[item.category].push({
-                                id: item.id || `menu-item-${index}`,
-                                name: item.name,
-                                price: item.price,
-                                description: item.description,
-                                isVeg: item.veg !== undefined ? item.veg : true, // Default to true if missing, or map from 'veg'
-                                image: item.imageId || ""
-                            });
-                            return acc;
-                        }, {});
+                if (foundRestaurant) {
+                    // Group menu items by category
+                    // Ensure menu exists and is an array
+                    const menuItems = Array.isArray(foundRestaurant.menu) ? foundRestaurant.menu : [];
 
-                        const menu = Object.keys(menuByCategory).map(category => ({
-                            category,
-                            items: menuByCategory[category]
-                        }));
-
-                        setRestaurant({
-                            id: foundRestaurant.restaurantId,
-                            name: foundRestaurant.name,
-                            cuisine: foundRestaurant.cuisines,
-                            rating: foundRestaurant.averageRating,
-                            deliveryTime: "30-40", // Placeholder
-                            priceForTwo: "₹400 for two", // Placeholder
-                            address: foundRestaurant.address ? `${foundRestaurant.address.street || ''}, ${foundRestaurant.address.city || ''}` : "Bangalore",
-                            menu: menu
+                    const menuByCategory = menuItems.reduce((acc, item, index) => {
+                        const category = item.category || "Others";
+                        if (!acc[category]) {
+                            acc[category] = [];
+                        }
+                        acc[category].push({
+                            id: item.id || `menu-item-${index}`,
+                            name: item.name,
+                            price: item.price,
+                            description: item.description,
+                            isVeg: item.veg !== undefined ? item.veg : true,
+                            image: item.imageId || ""
                         });
-                    }
+                        return acc;
+                    }, {});
+
+                    const menu = Object.keys(menuByCategory).map(category => ({
+                        category,
+                        items: menuByCategory[category]
+                    }));
+
+                    setRestaurant({
+                        id: foundRestaurant.restaurantId,
+                        name: foundRestaurant.name,
+                        cuisine: foundRestaurant.cuisines || [],
+                        rating: foundRestaurant.averageRating || "New",
+                        deliveryTime: "30-40", // Placeholder
+                        priceForTwo: "₹400 for two", // Placeholder
+                        address: foundRestaurant.address ? `${foundRestaurant.address.street || ''}, ${foundRestaurant.address.city || ''}` : "Bangalore",
+                        menu: menu
+                    });
                 }
             } catch (error) {
                 console.error("Error fetching restaurant details:", error);
