@@ -2,22 +2,56 @@ import React, { useState, useEffect } from 'react';
 import { FiPackage, FiMapPin, FiCreditCard, FiSettings, FiHeart, FiUser, FiEdit2 } from 'react-icons/fi';
 import { MdVerified } from 'react-icons/md';
 import axios from 'axios';
+import config from '../../config';
 
 const Profile = () => {
     const [activeTab, setActiveTab] = useState('profile');
     const [isEditing, setIsEditing] = useState(false);
-    const [user, setUser] = useState({
-        name: 'Shrikar',
-        phone: '9845484475',
-        email: 'mukesh.shrikar11@gmail.com'
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem('user');
+        return savedUser ? JSON.parse(savedUser) : {
+            name: '',
+            phone: '',
+            email: ''
+        };
     });
     const [orders, setOrders] = useState([]);
+
+    // Helper to get token
+    const getToken = () => localStorage.getItem('authToken');
+
+    // Fetch user profile on mount if we only have ID or want fresh data
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const userId = localStorage.getItem('userId') || (user && user.id);
+            if (!userId) return;
+
+            try {
+                const token = getToken();
+                const headers = token ? { Authorization: `Bearer ${token}` } : {};
+                const response = await axios.get(`${config.customer.baseUrl}/${userId}`, { headers });
+                if (response.data) {
+                    setUser(response.data);
+                    // Update local storage to keep in sync
+                    localStorage.setItem('user', JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+
 
     useEffect(() => {
         if (activeTab === 'orders') {
             const fetchOrders = async () => {
+                const userId = localStorage.getItem('userId') || (user && user.id) || "6970a04649d6db4dd74c3d3a"; // Fallback for dev
                 try {
-                    const response = await axios.get('http://localhost:9097/api/v1/orders/customer/6970a04649d6db4dd74c3d3a');
+                    const token = getToken();
+                    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+                    const response = await axios.get(`${config.order.baseUrl}/customer/${userId}`, { headers });
                     if (response.data) {
                         setOrders(response.data);
                     }
@@ -33,11 +67,30 @@ const Profile = () => {
         setIsEditing(!isEditing);
     };
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
-        setIsEditing(false);
-        // In a real app, we would make an API call here
-        console.log("Saved user details:", user);
+
+        try {
+            const token = getToken();
+            const headers = token ? { Authorization: `Bearer ${token}` } : {};
+            // Assuming the API supports PUT for updates
+            const userId = user.id || localStorage.getItem('userId');
+            if (!userId) {
+                alert("User ID missing, cannot save.");
+                return;
+            }
+
+            const response = await axios.put(`${config.customer.baseUrl}/${userId}`, user, { headers });
+
+            if (response.status === 200 || response.status === 204) {
+                setIsEditing(false);
+                localStorage.setItem('user', JSON.stringify(user));
+                alert("Profile updated successfully!");
+            }
+        } catch (error) {
+            console.error("Error saving profile:", error);
+            alert("Failed to save profile. Please try again.");
+        }
     };
 
     const handleInputChange = (e) => {

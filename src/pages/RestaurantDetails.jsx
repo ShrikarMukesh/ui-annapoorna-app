@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FaStar, FaClock, FaRupeeSign } from 'react-icons/fa';
 
 import axios from 'axios';
+import config from '../config';
 
 const RestaurantDetails = () => {
     const { id } = useParams();
@@ -13,7 +14,7 @@ const RestaurantDetails = () => {
             try {
                 // Fetching all restaurants and finding the one matches ID, as we have the list available
                 // Ideally this should be a specific endpoint like /api/v1/restaurants/{id}
-                const response = await axios.get('http://localhost:9190/api/v1/restaurants');
+                const response = await axios.get(config.restaurant.baseUrl);
                 if (response.data) {
                     const foundRestaurant = response.data.find(r => r.restaurantId === id);
 

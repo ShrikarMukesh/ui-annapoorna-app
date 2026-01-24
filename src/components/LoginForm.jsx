@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../config";
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const LoginForm = () => {
         setLoading(true); // Enable loading state
 
         try {
-            const response = await axios.post("http://localhost:9094/auth/signin", {
+            const response = await axios.post(`${config.auth.baseUrl}${config.auth.signin}`, {
                 email,
                 password,
             });
@@ -24,6 +25,16 @@ const LoginForm = () => {
 
             // Store token in localStorage (or session) after login
             localStorage.setItem("authToken", response.data.jwt);
+            // Assuming response contains user details like id, name, etc.
+            // If the backend assumes we fetch profile after login, we might need an extra call here.
+            // For now, let's store what we can if the API provides it.
+            if (response.data.user) {
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+            } else {
+                // Fallback: If backend only sends token, we might decode it or fetch profile on next page. 
+                // Storing a flag to force profile fetch.
+                localStorage.setItem("userId", response.data.userId || "1"); // Fallback to "1" for dev if missing
+            }
 
             console.log("JWT Token ", response.data.jwt);
             // Redirect to Home page after successful login

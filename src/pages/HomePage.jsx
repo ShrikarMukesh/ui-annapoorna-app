@@ -4,6 +4,7 @@ import FoodCategory from '../components/FoodCategory.jsx';
 import RestaurantCard from '../components/RestaurantCard.jsx';
 import Footer from '../components/commons/Footer.jsx';
 import axios from 'axios';
+import config from '../config';
 
 const HomePage = () => {
     const [restaurants, setRestaurants] = useState([]);
@@ -12,7 +13,7 @@ const HomePage = () => {
         // Fetch from API
         const fetchRestaurants = async () => {
             try {
-                const response = await axios.get('http://localhost:9190/api/v1/restaurants');
+                const response = await axios.get(config.restaurant.baseUrl);
                 if (response.data && response.data.length > 0) {
                     const mappedRestaurants = response.data.map(rest => ({
                         id: rest.restaurantId,
